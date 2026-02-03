@@ -899,7 +899,7 @@ local Players = game:GetService("Players")
 local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local CreditsGui = Instance.new("ScreenGui")
-CreditsGui.Name = "CatHubCredits"
+CreditsGui.Name = "HoangQuanHubCredits"
 CreditsGui.ResetOnSpawn = false
 CreditsGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CreditsGui.Parent = PlayerGui
@@ -6480,4 +6480,5 @@ Window:Notify({
     Body = "HoangQuan Hub loaded successfully!",
     Icon = {"rbxassetid://92677765459164"},
     Duration = 5
+
 })
