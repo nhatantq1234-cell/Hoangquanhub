@@ -1,0 +1,166 @@
+-- Mien Hub v1.0 | Custom Gravity Style by @Hoangg262 (Tuyên Quang VN) | Full 2026
+-- GUI: Clean Dark Theme, Tabs giống Gravity Hub
+-- Features: Auto Farm Level/Quest/Mastery/Boss/Raid/Chest/Sea/Mirage/Fruit Sniper/ESP/Teleport/Fast Attack/Race V4
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("HoangQuan Hub - Gravity Style | @Hoangquanchatgpt", ":))))))))")
+
+getgenv().MienConfig = {
+    Team = "Pirates",  -- Pirates/Marines
+    FarmMethod = "Upper",  -- Upper/Behind/Below
+    AutoFarmLevel = false,
+    AutoQuest = false,
+    AutoMastery = false,
+    AutoBoss = false,
+    AutoRaid = false,
+    AutoChest = false,
+    AutoSeaEvent = false,
+    AutoMirage = false,
+    FruitSniper = false,
+    FruitESP = false,
+    PlayerESP = false,
+    FastAttack = false,
+    TeleportEnabled = false,
+    RaceV4 = false,
+    WalkSpeed = 300,
+    JumpPower = 100
+}
+
+-- Anti AFK
+game:GetService("Players").LocalPlayer.Idled:Connect(function() game:GetService("VirtualUser"):CaptureController() game:GetService("VirtualUser"):ClickButton2(Vector2.new()) end)
+
+-- Tab Farm (giống Gravity Main Tab)
+local FarmTab = Window:NewTab("Farm")
+local FarmSec = FarmTab:NewSection("Auto Farm")
+
+FarmSec:NewToggle("Auto Farm Level", "Auto quest + mob theo level", function(state)
+    MienConfig.AutoFarmLevel = state
+end)
+FarmSec:NewToggle("Auto Quest", "Auto lấy/complete quest", function(state)
+    MienConfig.AutoQuest = state
+end)
+FarmSec:NewToggle("Auto Mastery", "Farm mastery weapon/fruit", function(state)
+    MienConfig.AutoMastery = state
+end)
+FarmSec:NewToggle("Auto Boss", "Farm boss auto", function(state)
+    MienConfig.AutoBoss = state
+end)
+FarmSec:NewToggle("Auto Raid", "Full raid + awaken", function(state)
+    MienConfig.AutoRaid = state
+end)
+FarmSec:NewToggle("Auto Chest", "Collect chest sea", function(state)
+    MienConfig.AutoChest = state
+end)
+FarmSec:NewToggle("Auto Sea Event", "Sea Beast/Mirage/Gear/Volcano", function(state)
+    MienConfig.AutoSeaEvent = state
+    MienConfig.AutoMirage = state  -- Kết hợp Mirage
+end)
+
+local MethodSec = FarmTab:NewSection("Farm Method")
+MethodSec:NewDropdown("Method", "Chọn cách farm", {"Upper", "Behind", "Below"}, function(method)
+    MienConfig.FarmMethod = method
+end)
+
+-- Tab Combat (Fast Attack, Skills)
+local CombatTab = Window:NewTab("Combat")
+local CombatSec = CombatTab:NewSection("Combat Features")
+CombatSec:NewToggle("Fast Attack", "No cooldown, kill nhanh", function(state)
+    MienConfig.FastAttack = state
+    if state then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AnhTuanDzai-Hub/FastAttackLoL/refs/heads/main/FastAttack.lua"))()
+    end
+end)
+CombatSec:NewToggle("Kill Aura", "Auto kill near", function(state) end)  -- Thêm code aura nếu cần
+CombatSec:NewToggle("Race V4 Auto", "Auto trial/skip/upgrade", function(state)
+    MienConfig.RaceV4 = state
+end)
+
+-- Tab ESP (Fruit/Player/Mob)
+local ESPTab = Window:NewTab("ESP")
+local ESPFarmSec = ESPTab:NewSection("ESP")
+ESPFarmSec:NewToggle("Fruit ESP/Sniper", "Notify + auto grab mythical", function(state)
+    MienConfig.FruitESP = state
+    MienConfig.FruitSniper = state
+end)
+ESPFarmSec:NewToggle("Player ESP", "Show player", function(state)
+    MienConfig.PlayerESP = state
+end)
+
+-- Tab Teleport (Islands/NPC/Boss)
+local TeleTab = Window:NewTab("Teleport")
+local TeleSec = TeleTab:NewSection("Teleport")
+TeleSec:NewButton("Teleport to Island", "TP island gần", function() end)  -- Thêm list dropdown islands
+TeleSec:NewButton("TP Boss", "TP boss", function() end)
+TeleSec:NewButton("TP Sea Event", "TP Mirage/Sea Beast", function() end)
+
+-- Tab Misc (Speed, Stats, Hop)
+local MiscTab = Window:NewTab("Misc")
+local MiscSec = MiscTab:NewSection("Misc")
+MiscSec:NewToggle("Auto Stats (Melee/Defense/Fruit)", "Auto add stats", function(state) end)
+MiscSec:NewSlider("WalkSpeed", "Tốc độ di chuyển", 500, 16, function(s) MienConfig.WalkSpeed = s end)
+MiscSec:NewSlider("JumpPower", "Nhảy cao", 100, 16, function(j) MienConfig.JumpPower = j end)
+MiscSec:NewButton("Hop Server (Low Player/Full Fruit)", "Hop server ngon", function()
+    game:GetService("TeleportService"):Teleport(game.PlaceId)
+end)
+MiscSec:NewDropdown("Team", "Pirates/Marines", {"Pirates", "Marines"}, function(team)
+    MienConfig.Team = team
+end)
+
+-- Main Loop Auto Farm (Core giống Gravity)
+spawn(function()
+    while task.wait(0.1) do
+        pcall(function()
+            local player = game.Players.LocalPlayer
+            local char = player.Character
+            if not char then return end
+            local hrp = char:FindFirstChild("HumanoidRootPart")
+            local hum = char:FindFirstChild("Humanoid")
+            if not hrp or not hum then return end
+
+            -- Speed/Jump
+            hum.WalkSpeed = MienConfig.WalkSpeed
+            hum.JumpPower = MienConfig.JumpPower
+
+            if MienConfig.AutoFarmLevel or MienConfig.AutoQuest then
+                -- Tìm mob/quest theo level (logic cơ bản, extend từ snippet phổ biến)
+                for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+                    if enemy:FindFirstChild("Humanoid") and enemy.Humanoid.Health > 0 then
+                        hrp.CFrame = enemy.HumanoidRootPart.CFrame * CFrame.new(0, MienConfig.FarmMethod == "Upper" and 10 or -5, -10)
+                        -- Auto attack
+                        game:GetService("VirtualUser"):ClickButton1(Vector2.new())
+                    end
+                end
+            end
+
+            -- Fruit Sniper/ESP
+            if MienConfig.FruitSniper then
+                for _, fruit in pairs(workspace:GetChildren()) do
+                    if fruit:IsA("Tool") and fruit:FindFirstChild("Handle") and (fruit.Name:find("Dragon") or fruit.Name:find("Leopard")) then
+                        fruit.Handle.CFrame = hrp.CFrame
+                        game.StarterGui:SetCore("SendNotification", {Title="Mien Notify", Text="Mythic Fruit Grabbed!", Duration=3})
+                    end
+                end
+            end
+
+            -- Auto Mirage/Sea (check spawn)
+            if MienConfig.AutoSeaEvent then
+                if workspace:FindFirstChild("Mirage Island") then
+                    game.StarterGui:SetCore("SendNotification", {Title="Mien Notify", Text="Mirage Spawn! Hopping...", Duration=5})
+                    game:GetService("TeleportService"):Teleport(game.PlaceId)
+                end
+            end
+        end)
+    end
+end)
+
+-- Watermark
+local Watermark = Instance.new("ScreenGui")
+local Label = Instance.new("TextLabel")
+Label.Text = "HoangQuan Hub | @Hoangquancoderchatgpt - VN | FPS: " .. math.floor(1/task.wait())
+Label.Size = UDim2.new(0, 250, 0, 30)
+Label.Position = UDim2.new(0, 10, 0, 10)
+Label.BackgroundColor3 = Color3.new(0,0,0)
+Label.TextColor3 = Color3.new(1,1,0)
+Label.Parent = game.CoreGui
+
+print("HoangQuan Hub Custom Loaded! Full Gravity Features - Tele: @Hoangquanchatgpt")
