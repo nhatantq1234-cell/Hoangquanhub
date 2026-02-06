@@ -2469,11 +2469,11 @@ end);
 local v49 = v16.Main:AddToggle("ToggleLevel", {
     Title = "Auto Farm Level",
     Description = "",
-    Default = false
+    Default = true
 });
 v49:OnChanged(function(v237)
     _G.AutoLevel = v237;
-    if (v237 == false) then
+    if (v237 == true) then
         wait();
         Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame);
         wait();
@@ -2510,7 +2510,7 @@ spawn(function()
                                     FarmPos = v1433.HumanoidRootPart.CFrame;
                                     MonFarm = v1433.Name;
                                 until not _G.AutoLevel or not v1433.Parent or (v1433.Humanoid.Health <= 0) or not game:GetService("Workspace").Enemies:FindFirstChild(v1433.Name) or (game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible == false)
-                                bringmob = false;
+                                bringmob = true;
                             end
                         end
                     end
@@ -2529,7 +2529,7 @@ end);
 local v50 = v16.Main:AddToggle("ToggleMobAura", {
     Title = "Auto Farm Nearest",
     Description = "",
-    Default = false
+    Default = true
 });
 v50:OnChanged(function(v238)
     _G.AutoNear = v238;
@@ -2563,7 +2563,7 @@ spawn(function()
                                     FarmPos = v839.HumanoidRootPart.CFrame;
                                     MonFarm = v839.Name;
                                 until not _G.AutoNear or not v839.Parent or (v839.Humanoid.Health <= 0) or not game.Workspace.Enemies:FindFirstChild(v839.Name)
-                                bringmob = false;
+                                bringmob = true;
                             end
                         end
                     end
