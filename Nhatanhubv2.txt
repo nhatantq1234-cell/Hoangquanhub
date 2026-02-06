@@ -5115,7 +5115,7 @@ _G.SelectWeapon = "Melee"
      	end
     end)
 
-   AutoFarm:Toggle("Auto Farm Level",false,function(value)
+   AutoFarm:Toggle("Auto Farm Level",true,function(value)
     _G.AutoFarm = value
       StopTween(_G.AutoFarm)		
        end)
