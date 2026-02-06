@@ -886,7 +886,7 @@ local ModernUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Rize
 local Window = ModernUI.new({
     Title = "HoangQuan Hub",
     SubTitle = "Blox Fruits",
-    Icon = {"rbxassetid://138770682187300", "rbxassetid://110961158970233"},
+    Icon = {"rbxassetid://138770682187300", "rbxassetid://2900944368"},
     IconFPS = 0.1,
     FloatingButton = {
         Icon = {"rbxassetid://138770682187300", "rbxassetid://110961158970233"},
@@ -899,7 +899,7 @@ local Players = game:GetService("Players")
 local PlayerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local CreditsGui = Instance.new("ScreenGui")
-CreditsGui.Name = "HoangQuanHubCredits"
+CreditsGui.Name = "CatHubCredits"
 CreditsGui.ResetOnSpawn = false
 CreditsGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CreditsGui.Parent = PlayerGui
@@ -937,7 +937,7 @@ local Icon1 = Instance.new("ImageLabel")
 Icon1.Name = "Icon1"
 Icon1.Size = UDim2.new(1, 0, 1, 0)
 Icon1.BackgroundTransparency = 1
-Icon1.Image = "rbxassetid://138770682187300"
+Icon1.Image = "rbxassetid://2900944368"
 Icon1.ScaleType = Enum.ScaleType.Fit
 Icon1.Parent = IconContainer
 
@@ -945,7 +945,7 @@ local Icon2 = Instance.new("ImageLabel")
 Icon2.Name = "Icon2"
 Icon2.Size = UDim2.new(1, 0, 1, 0)
 Icon2.BackgroundTransparency = 1
-Icon2.Image = "rbxassetid://110961158970233"
+Icon2.Image = "rbxassetid://2900944368"
 Icon2.ScaleType = Enum.ScaleType.Fit
 Icon2.Visible = false
 Icon2.Parent = IconContainer
@@ -4493,7 +4493,7 @@ local DiscordTab = Window:CreateTab({
 Window:AddInviteDiscord(DiscordTab, {
     Name = "HoangQuan",
     Link = "https://discord.gg/SenZqyaRvr",
-    Icon = "rbxassetid://138770682187300",
+    Icon = "rbxassetid://2900944368",
     ButtonText = "Join"
 })
 
@@ -5315,15 +5315,15 @@ Window:AddToggle(FarmingTab, {
             if currentTween then
                 currentTween:Cancel()
             end
-            _G.FastAttack = false
-            Settings.BringEnemy = false
+            _G.FastAttack = true
+            Settings.BringEnemy = true
             DisableNoClip()
             RemoveFlyPlatform()
             if autoCakePrinceConnection then
                 autoCakePrinceConnection:Disconnect()
                 autoCakePrinceConnection = nil
             end
-            _G.FastAttack = false
+            _G.FastAttack = true
             _G.NoClip = false
             Settings.BringEnemy = false
             DisableNoClip()
@@ -5692,7 +5692,7 @@ Window:AddToggle(ItemsQuestTab, {
                                                     if currentTween then
                                                         currentTween:Cancel()
                                                     end
-                                                    _G.FastAttack = false
+                                                    _G.FastAttack = true
                                                     _G.CurrentTarget = nil
                                                     DisableNoClip()
                                                     ReplicatedStorage.Remotes.CommF_:InvokeServer("TalkTrevor", "1")
@@ -5734,12 +5734,12 @@ Window:AddToggle(ItemsQuestTab, {
                                                 PosMon = hrpPos
                                                 topos(CFrame.new(hrpPos.X, hrpPos.Y + Settings.FarmHeight, hrpPos.Z))
                                             until not Settings.AutoZou or not swanPirate.Parent or swanPirate.Humanoid.Health <= 0 or player.PlayerGui.Main.Quest.Visible == false
-                                            _G.FastAttack = false
+                                            _G.FastAttack = true
                                         else
                                             if currentTween then
                                                 currentTween:Cancel()
                                             end
-                                            _G.FastAttack = false
+                                            _G.FastAttack = true
                                             _G.CurrentTarget = nil
                                             DisableNoClip()
                                             topos(CFrame.new(1057.92761, 137.614319, 1242.08069))
@@ -5777,12 +5777,12 @@ Window:AddToggle(ItemsQuestTab, {
                                             PosMon = hrpPos
                                             topos(CFrame.new(hrpPos.X, hrpPos.Y + Settings.FarmHeight, hrpPos.Z))
                                         until not Settings.AutoZou or not jeremy.Parent or jeremy.Humanoid.Health <= 0
-                                        _G.FastAttack = false
+                                        _G.FastAttack = true
                                     else
                                         if currentTween then
                                             currentTween:Cancel()
                                         end
-                                        _G.FastAttack = false
+                                        _G.FastAttack = true
                                         _G.CurrentTarget = nil
                                         DisableNoClip()
                                         topos(CFrame.new(2099.88159, 448.931, 648.997375))
@@ -5853,12 +5853,12 @@ Window:AddToggle(ItemsQuestTab, {
                                 PosMon = CFrame.new(448.46756, 199.356781, -441.389252).Position
                                 topos(CFrame.new(448.46756, 199.356781, -441.389252))
                             until not Settings.AutoFactory or not core.Parent or core.Humanoid.Health <= 0
-                            _G.FastAttack = false
+                            _G.FastAttack = true
                         else
                             if currentTween then
                                 currentTween:Cancel()
                             end
-                            _G.FastAttack = false
+                            _G.FastAttack = true 
                             _G.CurrentTarget = nil
                             DisableNoClip()
                             topos(CFrame.new(448.46756, 199.356781, -441.389252))
@@ -5905,7 +5905,7 @@ Window:AddToggle(ItemsQuestTab, {
                             if currentTween then
                                 currentTween:Cancel()
                             end
-                            _G.FastAttack = false
+                            _G.FastAttack = true
                             _G.CurrentTarget = nil
                             DisableNoClip()
                             topos(CFrame.new(-5496.17432, 313.768921, -2841.53027))
@@ -5956,7 +5956,7 @@ Window:AddToggle(ItemsQuestTab, {
                                                 if currentTween then
                                                     currentTween:Cancel()
                                                 end
-                                                _G.FastAttack = false
+                                                _G.FastAttack = true
                                                 _G.CurrentTarget = nil
                                                 Settings.BringEnemy = false
                                                 DisableNoClip()
@@ -5970,12 +5970,12 @@ Window:AddToggle(ItemsQuestTab, {
                                                 topos(CFrame.new(hrpPos.X, hrpPos.Y + Settings.FarmHeight, hrpPos.Z))
                                             end
                                         until not Settings.BartiloQuest or not swanPirate.Parent or swanPirate.Humanoid.Health <= 0 or player.PlayerGui.Main.Quest.Visible == false or ReplicatedStorage.Remotes.CommF_:InvokeServer("BartiloQuestProgress", "Bartilo") ~= 0
-                                        _G.FastAttack = false
+                                        _G.FastAttack = true
                                     else
                                         if currentTween then
                                             currentTween:Cancel()
                                         end
-                                        _G.FastAttack = false
+                                        _G.FastAttack = true
                                         _G.CurrentTarget = nil
                                         Settings.BringEnemy = false
                                         DisableNoClip()
@@ -5985,7 +5985,7 @@ Window:AddToggle(ItemsQuestTab, {
                                     if currentTween then
                                         currentTween:Cancel()
                                     end
-                                    _G.FastAttack = false
+                                    _G.FastAttack = true
                                     _G.CurrentTarget = nil
                                     Settings.BringEnemy = false
                                     DisableNoClip()
@@ -6022,7 +6022,7 @@ Window:AddToggle(ItemsQuestTab, {
                                     if currentTween then
                                         currentTween:Cancel()
                                     end
-                                    _G.FastAttack = false
+                                    _G.FastAttack = true
                                     _G.CurrentTarget = nil
                                     Settings.BringEnemy = false
                                     DisableNoClip()
@@ -6063,7 +6063,7 @@ Window:AddToggle(ItemsQuestTab, {
             if currentTween then
                 currentTween:Cancel()
             end
-            _G.FastAttack = false
+            _G.FastAttack = true
             _G.CurrentTarget = nil
             DisableNoClip()
             if not Settings.AutoFarm and not Settings.AutoFarmMethod and not Settings.CitizenQuest then
@@ -6116,7 +6116,7 @@ Window:AddToggle(ItemsQuestTab, {
                                         if currentTween then
                                             currentTween:Cancel()
                                         end
-                                        _G.FastAttack = false
+                                        _G.FastAttack = true
                                         _G.CurrentTarget = nil
                                         Settings.BringEnemy = false
                                         DisableNoClip()
@@ -6126,7 +6126,7 @@ Window:AddToggle(ItemsQuestTab, {
                                     if currentTween then
                                         currentTween:Cancel()
                                     end
-                                    _G.FastAttack = false
+                                    _G.FastAttack = true
                                     _G.CurrentTarget = nil
                                     Settings.BringEnemy = false
                                     DisableNoClip()
@@ -6157,7 +6157,7 @@ Window:AddToggle(ItemsQuestTab, {
                                             PosMon = hrpPos
                                             topos(CFrame.new(hrpPos.X, hrpPos.Y + Settings.FarmHeight, hrpPos.Z))
                                         until not Settings.CitizenQuest or not captainElephant.Parent or captainElephant.Humanoid.Health <= 0 or player.PlayerGui.Main.Quest.Visible == false or ReplicatedStorage.Remotes.CommF_:InvokeServer("CitizenQuestProgress").KilledBoss == true
-                                        _G.FastAttack = false
+                                        _G.FastAttack = true
                                     else
                                         if currentTween then
                                             currentTween:Cancel()
@@ -6172,7 +6172,7 @@ Window:AddToggle(ItemsQuestTab, {
                                     if currentTween then
                                         currentTween:Cancel()
                                     end
-                                    _G.FastAttack = false
+                                    _G.FastAttack = true
                                     _G.CurrentTarget = nil
                                     Settings.BringEnemy = false
                                     DisableNoClip()
@@ -6197,7 +6197,7 @@ Window:AddToggle(ItemsQuestTab, {
             if currentTween then
                 currentTween:Cancel()
             end
-            _G.FastAttack = false
+            _G.FastAttack = true
             _G.CurrentTarget = nil
             DisableNoClip()
             if not Settings.AutoFarm and not Settings.AutoFarmMethod and not Settings.BartiloQuest then
@@ -6478,7 +6478,6 @@ Window:AddToggle(ShopTab, {
 Window:Notify({
     Title = "Script Loaded",
     Body = "HoangQuan Hub loaded successfully!",
-    Icon = {"rbxassetid://92677765459164"},
+    Icon = {"rbxassetid://2900944368"},
     Duration = 5
-
 })
