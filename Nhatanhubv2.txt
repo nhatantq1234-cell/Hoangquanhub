@@ -263,7 +263,7 @@ end)
 
 spawn(rainbowColor)
 
-_G.FastAttack = true
+_G.FastAttack = false
 
 if _G.FastAttack then
     local _ENV = (getgenv or getrenv or getfenv)()
@@ -11006,7 +11006,7 @@ end)
 			if _G.AutoPlayerHunter then
 				if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
 					wait(.5)
-					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("PlayerHunter")
+					game: Getservice ("ReplicatedStorage").Remotes.CommF_:InvokeServer("PlayerHunter")
 				else
 					for i,v in pairs(game:GetService("Workspace").Characters:GetChildren()) do
 						if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,v.Name) then
@@ -11914,7 +11914,7 @@ game:GetService("StarterGui"):SetCore(
     {
         Title = "HoangQuan Hub ",
         Text = "Đã Tải Xong",
-        Icon = "rbxassetid://100306458933414",
+        Icon = "rbxassetid://2900944368",
         Duration = 5
     }
 )
