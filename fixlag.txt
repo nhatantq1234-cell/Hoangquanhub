@@ -1,0 +1,137 @@
+-- BLOX FRUITS FIX LAG HUB (HoangQuan)
+-- GUI + Nút ấn + Auto API
+-- Ưu tiên dùng được > màu mè
+
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+
+-- ================= CORE =================
+local AutoEnabled = false
+
+local function ApplyFixLag()
+    pcall(function()
+        Lighting.GlobalShadows = false
+        Lighting.FogEnd = 1e10
+        Lighting.Brightness = 1
+        Lighting.EnvironmentDiffuseScale = 0
+        Lighting.EnvironmentSpecularScale = 0
+
+        for _,v in pairs(Lighting:GetChildren()) do
+            if v:IsA("PostEffect") then
+                v.Enabled = false
+            end
+        end
+    end)
+
+    pcall(function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("ParticleEmitter")
+            or v:IsA("Trail")
+            or v:IsA("Smoke")
+            or v:IsA("Fire")
+            or v:IsA("Sparkles") then
+                v.Enabled = false
+            end
+
+            if v:IsA("Decal") or v:IsA("Texture") then
+                v.Transparency = 1
+            end
+
+            if v:IsA("BasePart") then
+                v.Material = Enum.Material.SmoothPlastic
+                v.CastShadow = false
+                v.Reflectance = 0
+            end
+        end
+    end)
+
+    pcall(function()
+        settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+    end)
+end
+
+local function UltraLow()
+    ApplyFixLag()
+    pcall(function()
+        for _,v in pairs(workspace:GetDescendants()) do
+            if v:IsA("BasePart") then
+                v.CastShadow = false
+            end
+        end
+    end)
+end
+
+-- ================= AUTO API =================
+LocalPlayer.CharacterAdded:Connect(function()
+    if AutoEnabled then
+        task.wait(1)
+        ApplyFixLag()
+    end
+end)
+
+workspace.DescendantAdded:Connect(function(v)
+    if AutoEnabled then
+        if v:IsA("ParticleEmitter")
+        or v:IsA("Trail")
+        or v:IsA("Smoke")
+        or v:IsA("Fire")
+        or v:IsA("Sparkles") then
+            pcall(function()
+                v.Enabled = false
+            end)
+        end
+    end
+end)
+
+-- ================= GUI =================
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "FixLagStableGUI"
+
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0,270,0,230)
+main.Position = UDim2.new(0.05,0,0.3,0)
+main.BackgroundColor3 = Color3.fromRGB(22,22,22)
+main.Active = true
+main.Draggable = true
+
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1,0,0,35)
+title.Text = "🚀 BLOX FRUITS FIX LAG"
+title.TextColor3 = Color3.new(1,1,1)
+title.BackgroundTransparency = 1
+title.Font = Enum.Font.GothamBold
+title.TextSize = 14
+
+local function Btn(text,y,func)
+    local b = Instance.new("TextButton", main)
+    b.Size = UDim2.new(0.9,0,0,35)
+    b.Position = UDim2.new(0.05,0,0,y)
+    b.Text = text
+    b.Font = Enum.Font.Gotham
+    b.TextSize = 13
+    b.TextColor3 = Color3.new(1,1,1)
+    b.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    b.MouseButton1Click:Connect(func)
+end
+
+Btn("✅ BẬT FIX LAG",45,function()
+    AutoEnabled = false
+    ApplyFixLag()
+end)
+
+Btn("🔥 ULTRA LOW (MÁY YẾU)",85,function()
+    AutoEnabled = false
+    UltraLow()
+end)
+
+Btn("🤖 AUTO FIX (KHUYÊN DÙNG)",125,function()
+    AutoEnabled = true
+    ApplyFixLag()
+end)
+
+Btn("❌ TẮT GUI",175,function()
+    gui:Destroy()
+end)
+
+print("✅ FIX LAG HUB – By HoangQuan")
