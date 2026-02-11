@@ -1,5 +1,5 @@
 -- local function scary()
---     warn("❌ This script must only be executed from the offical Bear hud loader")
+--     warn("❌ This script must only be executed from the offical Nhatan hud loader")
 --         return
 --     end
 
@@ -36,7 +36,7 @@
 -- end
 -- _G._secondaryData = nil
 -- _G.__userKey = nil
-print("✅ Security verification passed. Loading Bear hud...")
+print("✅ Security verification passed. Loading Nhatan hud...")
 if game.PlaceId == 2753915549 then
 	World1 = true;
 elseif game.PlaceId == 4442272183 then
@@ -360,10 +360,10 @@ _G.Settings = {
 };
 (getgenv()).Load = function()
 	if readfile and writefile and isfile and isfolder then
-		if not isfolder("Bear hud") then
-			makefolder("Bear hud");
+		if not isfolder("Nhatan hud") then
+			makefolder("Nhatan hud");
 		end;
-		if not isfolder("Bear hud/Blox Fruits/") then
+		if not isfolder("Nhatan hud/Blox Fruits/") then
 			makefolder("Bear hud/Blox Fruits/");
 		end;
 		if not isfile(("Bear Hud/Blox Fruits/" .. game.Players.LocalPlayer.Name .. ".json")) then
@@ -406,7 +406,7 @@ spawn(function()
 	wait(1);
 	((require(game.ReplicatedStorage.Notification)).new("<Color=Purple>[ Welcome " .. game.Players.LocalPlayer.DisplayName .. " ]<Color=/>")):Display();
 	wait(1);
-	((require(game.ReplicatedStorage.Notification)).new("<Color=Yellow>[ Huy script 🇻🇳]<Color=/>")):Display();
+	((require(game.ReplicatedStorage.Notification)).new("<Color=Yellow>[ Nhatan script 🇻🇳]<Color=/>")):Display();
 end);
 function CheckQuest()
 	MyLevel = (game:GetService("Players")).LocalPlayer.Data.Level.Value;
