@@ -2166,7 +2166,7 @@ spawn(function()
 end);
 DiscordServerParagraph = Tabs.InfoTab:Paragraph({
 	Title = "Discord Server",
-	Desc = "Link Discord YGz Hub",
+	Desc = "Link Discord Nhatan Hub",
 	TextXAlignment = "Left",
 	Buttons = {
 		{
