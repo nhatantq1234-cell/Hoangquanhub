@@ -1,4 +1,4 @@
-shared.LoaderTitle = "Đăng Ký Kênh Văn Thành IOS";
+shared.LoaderTitle = "Mình nhận code tool, bot Telegram, tool botnet... tool vi phạm pháp luật và không vi phạm theo yêu cầu nhóoo💗";
 shared.LoaderKeyFrames = {
     [1] = {
         1,
