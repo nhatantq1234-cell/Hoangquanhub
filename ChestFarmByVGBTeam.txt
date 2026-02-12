@@ -1,0 +1,242 @@
+local Player = game.Players.LocalPlayer
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/VanThanhIOS/VanThanhLuxucu/refs/heads/main/main.txt"))()
+ 
+local Hub = Material.Load({
+	Title = "HoangQuan Chest Farm",
+	Style = 3,
+	SizeX = 375,
+	SizeY = 80,
+	Theme = "Light",
+	ColorOverrides = {
+		MainFrame = Color3.fromRGB(235,235,235)
+	}
+})
+ 
+local Home = Hub.New({
+	Title = "Home"
+})
+ 
+_G.Tween = nil
+_G.Play = false
+_G.CloseAllScript = false
+ 
+local ToggleAutoChest = Home.Toggle({
+	Text = "Auto Chest",
+	Callback = function(Value)
+		_G.Play = Value
+	end,
+	Enabled = _G.Play
+})
+ 
+game:GetService('RunService').Stepped:connect(function()
+	if _G.Play then
+		local HumanoidRootPart = Player.Character:WaitForChild("HumanoidRootPart")
+		local Humanoid = Player.Character:WaitForChild("Humanoid")
+		HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+		for i,v in pairs(Player.Character:GetDescendants()) do
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+		end
+		Humanoid.Sit = false
+	end
+end)
+ 
+function Tween(Part)
+	if _G.Tween then
+		_G.Tween:Cancel()
+	end
+	local HumanoidRootPart = Player.Character:WaitForChild("HumanoidRootPart")
+	_G.Tween = game:GetService("TweenService"):Create(HumanoidRootPart,TweenInfo.new((Part.Position-HumanoidRootPart.Position).magnitude/300,Enum.EasingStyle.Linear,Enum.EasingDirection.InOut),{CFrame = Part.CFrame})
+	_G.Tween:Play()
+	local flying = true
+	while game:GetService("RunService").Stepped:Wait() and flying and _G.Play do
+		if _G.Play == false then
+			_G.Tween:Cancel()
+		end
+		if (Part.Position-HumanoidRootPart.Position).magnitude < 250 then
+			_G.Tween:Cancel()
+			for i = 1,5 do
+				HumanoidRootPart.CFrame = Part.CFrame
+				wait()
+			end
+			flying = false
+		end
+	end
+end
+ 
+function TableNearToFarChests()
+	local HumanoidRootPart = Player.Character:WaitForChild("HumanoidRootPart")
+	local chests = {}
+	local checkedchests = {}
+	local function Check(v)
+		for i,e in pairs(checkedchests) do
+			if v == e then
+				return false
+			end
+		end
+		return true
+	end
+	local function A(tablec)
+		local nearest
+		local sus
+		for i,v in pairs(tablec) do
+			local real = Check(v)
+			if real then
+				if nearest then
+					if (v.Position-HumanoidRootPart.Position).magnitude < nearest then
+                        nearest = (v.Position-HumanoidRootPart.Position).magnitude
+						sus = v
+					end
+				else
+					nearest = (v.Position-HumanoidRootPart.Position).magnitude
+                    sus = v
+				end
+			end
+		end
+		return sus
+	end
+	local function B(tablec)
+		local C = A(tablec)
+		if C then
+			table.insert(checkedchests,C)
+			B(tablec)
+		end
+		return checkedchests
+	end
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v.Name == "Chest1" or v.Name == "Chest2" or v.Name == "Chest3" then
+			table.insert(chests,v)
+		end
+	end
+	B(chests)
+	return chests,checkedchests
+end
+ 
+repeat wait() until game:IsLoaded()
+ 
+while wait(1) do
+	if _G.Play then
+		local chests,checkedchests = TableNearToFarChests()
+		for i,v in pairs(checkedchests) do
+			Tween(v)
+			if _G.Play == false then
+				break
+			end
+		end
+	else
+		if _G.Tween then
+			_G.Tween:Cancel()
+		end
+	end
+end
+
+
+
+if not game.CoreGui:FindFirstChild("XScreen") then
+
+    local XScreen = Instance.new("ScreenGui")
+
+    local XToggle = Instance.new("TextButton")
+
+    local ThunderCornerUI = Instance.new("UICorner")
+
+    local ThunderImageUI = Instance.new("ImageLabel")
+
+    local TestLabelEN = Instance.new("TextLabel")
+
+    local TestLabelVN = Instance.new("TextLabel")
+
+
+
+    XScreen.Name = "Copy Discord Link (New Link)"
+
+    XScreen.Parent = game.CoreGui
+
+    XScreen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+
+
+    XToggle.Name = "XToggle"
+
+    XToggle.Parent = XScreen
+
+    XToggle.BackgroundColor3 = Color3.fromRGB(244, 244, 0)
+
+    XToggle.Position = UDim2.new(0.5, -75, 0.0952890813, 0)
+    XToggle.Size = UDim2.new(0, 150, 0, 30)
+
+    XToggle.Font = Enum.Font.SourceSansSemibold
+
+    XToggle.Text = "Copy Discord Link"
+
+    XToggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+
+    XToggle.TextSize = 19
+
+    XToggle.Draggable = true
+
+
+
+    TestLabelEN.Name = "TestLabelEN"
+
+    TestLabelEN.Parent = XScreen
+
+    TestLabelEN.BackgroundTransparency = 1
+
+    TestLabelEN.Size = UDim2.new(0, 200, 0, 50)
+
+    TestLabelEN.Position = UDim2.new(0.5, -100, 0.4, -25)
+
+    TestLabelEN.Font = Enum.Font.SourceSansBold
+
+    TestLabelEN.Text = ""
+
+    TestLabelEN.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+    TestLabelEN.TextSize = 30
+
+
+
+    TestLabelVN.Name = "TestLabelVN"
+
+    TestLabelVN.Parent = XScreen
+
+    TestLabelVN.BackgroundTransparency = 1
+
+    TestLabelVN.Size = UDim2.new(0, 200, 0, 50)
+
+    TestLabelVN.Position = UDim2.new(0.5, -100, 0.5, -25)
+
+    TestLabelVN.Font = Enum.Font.SourceSansBold
+
+    TestLabelVN.Text = ""
+
+    TestLabelVN.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+    TestLabelVN.TextSize = 30
+
+
+
+    XToggle.MouseButton1Click:Connect(function()
+
+        setclipboard("https://discord.gg/wd6preaR2F")
+
+    end)
+
+end
+
+
+
+repeat wait() until game:IsLoaded()
+
+wait()
+
+
+
+for _, v in next, getconnections(game:GetService("Players").LocalPlayer.Idled) do
+
+    v:Disable()
+
+end
