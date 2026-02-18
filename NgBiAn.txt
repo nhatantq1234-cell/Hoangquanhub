@@ -313,7 +313,7 @@ v5:Destroy();
 -- end);
 local v14 = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))();
 local v15 = v14:CreateWindow({
-    Title = "AndepZai Hub",
+    Title = "Nhatan Hub",
     SubTitle = "Premium Script",
     TabWidth = 160,
     Theme = "Dark",
