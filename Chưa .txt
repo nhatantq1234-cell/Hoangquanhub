@@ -1,0 +1,386 @@
+--[[
+    🔥 ALPHA HUB 🔥
+    BLOX FRUIT MOBILE HACK
+    FULL CHỨC NĂNG - GIAO DIỆN ĐẸP
+]]
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local CoreGui = game:GetService("CoreGui")
+local Lighting = game:GetService("Lighting")
+local VirtualUser = game:GetService("VirtualUser")
+local lp = Players.LocalPlayer
+
+-- CONFIG
+local cfg = {
+    farm = true, quest = true, chest = true, bring = true,
+    haki = true, store = true, snipe = true, esp = true,
+    speed = false, fly = false, raids = false,
+    speedVal = 100, flyVal = 50
+}
+
+-- UI
+local gui = Instance.new("ScreenGui")
+gui.Name = "AlphaHub"
+gui.Parent = CoreGui
+
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 300, 0, 420)
+main.Position = UDim2.new(0.5, -150, 0.5, -210)
+main.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
+main.BackgroundTransparency = 0.05
+main.BorderSizePixel = 0
+main.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = main
+
+-- Header đẹp
+local header = Instance.new("Frame")
+header.Size = UDim2.new(1, 0, 0, 45)
+header.BackgroundColor3 = Color3.fromRGB(255, 60, 60)
+header.BorderSizePixel = 0
+header.Parent = main
+
+local headerCorner = Instance.new("UICorner")
+headerCorner.CornerRadius = UDim.new(0, 12)
+headerCorner.Parent = header
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -50, 1, 0)
+title.Position = UDim2.new(0, 15, 0, 0)
+title.Text = "🔥 ALPHA HUB 🔥"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+title.BackgroundTransparency = 1
+title.Parent = header
+
+local close = Instance.new("TextButton")
+close.Size = UDim2.new(0, 35, 0, 35)
+close.Position = UDim2.new(1, -42, 0, 5)
+close.BackgroundColor3 = Color3.fromRGB(200, 30, 30)
+close.Text = "✕"
+close.TextColor3 = Color3.fromRGB(255, 255, 255)
+close.TextSize = 18
+close.Font = Enum.Font.GothamBold
+close.BorderSizePixel = 0
+close.Parent = header
+
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 8)
+closeCorner.Parent = close
+
+close.MouseButton1Click:Connect(function() gui:Destroy() end)
+
+-- Scroll
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, -10, 1, -55)
+scroll.Position = UDim2.new(0, 5, 0, 50)
+scroll.BackgroundTransparency = 1
+scroll.ScrollBarThickness = 3
+scroll.Parent = main
+
+-- Nút menu chính
+local menuBtn = Instance.new("ImageButton")
+menuBtn.Size = UDim2.new(0, 55, 0, 55)
+menuBtn.Position = UDim2.new(0.85, 0, 0.85, 0)
+menuBtn.BackgroundColor3 = Color3.fromRGB(255, 60, 60)
+menuBtn.BackgroundTransparency = 0.15
+menuBtn.Parent = gui
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(1, 0)
+btnCorner.Parent = menuBtn
+
+menuBtn.MouseButton1Click:Connect(function() main.Visible = not main.Visible end)
+
+-- Hàm tạo toggle
+local y = 10
+local function toggle(text, key, default)
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, -10, 0, 40)
+    frame.Position = UDim2.new(0, 5, 0, y)
+    frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+    frame.BackgroundTransparency = 0.3
+    frame.Parent = scroll
+    
+    local fCorner = Instance.new("UICorner")
+    fCorner.CornerRadius = UDim.new(0, 8)
+    fCorner.Parent = frame
+    
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, -70, 1, 0)
+    label.Position = UDim2.new(0, 15, 0, 0)
+    label.Text = text
+    label.TextColor3 = Color3.fromRGB(220, 220, 220)
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 13
+    label.BackgroundTransparency = 1
+    label.Parent = frame
+    
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0, 50, 0, 32)
+    btn.Position = UDim2.new(1, -58, 0, 4)
+    btn.Text = default and "ON" or "OFF"
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextSize = 12
+    btn.Font = Enum.Font.GothamBold
+    btn.BackgroundColor3 = default and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(200, 50, 50)
+    btn.BorderSizePixel = 0
+    btn.Parent = frame
+    
+    local btnCor = Instance.new("UICorner")
+    btnCor.CornerRadius = UDim.new(0, 6)
+    btnCor.Parent = btn
+    
+    local state = default
+    btn.MouseButton1Click:Connect(function()
+        state = not state
+        btn.Text = state and "ON" or "OFF"
+        btn.BackgroundColor3 = state and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(200, 50, 50)
+        cfg[key] = state
+    end)
+    
+    y = y + 48
+    scroll.CanvasSize = UDim2.new(0, 0, 0, y + 20)
+end
+
+-- Hàm tạo nút
+local function button(text, color, cb)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(1, -10, 0, 40)
+    btn.Position = UDim2.new(0, 5, 0, y)
+    btn.Text = text
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextSize = 13
+    btn.Font = Enum.Font.GothamBold
+    btn.BackgroundColor3 = color or Color3.fromRGB(255, 70, 70)
+    btn.BorderSizePixel = 0
+    btn.Parent = scroll
+    
+    local btnCor = Instance.new("UICorner")
+    btnCor.CornerRadius = UDim.new(0, 8)
+    btnCor.Parent = btn
+    
+    btn.MouseButton1Click:Connect(cb)
+    
+    y = y + 48
+    scroll.CanvasSize = UDim2.new(0, 0, 0, y + 20)
+end
+
+-- TIÊU ĐỀ
+local function section(title)
+    local lab = Instance.new("TextLabel")
+    lab.Size = UDim2.new(1, -10, 0, 30)
+    lab.Position = UDim2.new(0, 5, 0, y)
+    lab.Text = "▸ " .. title
+    lab.TextColor3 = Color3.fromRGB(255, 100, 100)
+    lab.Font = Enum.Font.GothamBold
+    lab.TextSize = 14
+    lab.BackgroundTransparency = 1
+    lab.Parent = scroll
+    y = y + 35
+end
+
+-- TẠO UI
+section("⚔️ AUTO FARM")
+toggle("Auto Farm", "farm", true)
+toggle("Auto Quest", "quest", true)
+toggle("Auto Chest", "chest", true)
+toggle("Bring Mobs", "bring", true)
+toggle("Auto Haki", "haki", true)
+
+section("🍎 DEVIL FRUIT")
+toggle("Auto Store Fruit", "store", true)
+toggle("Fruit Sniper", "snipe", true)
+
+section("🎮 MISC")
+toggle("ESP", "esp", true)
+toggle("Speed Hack", "speed", false)
+toggle("Fly Hack", "fly", false)
+toggle("Auto Raid", "raids", false)
+toggle("Anti AFK", "antiafk", true)
+
+section("📍 TELEPORT")
+button("🏝️ Jungle", Color3.fromRGB(0, 150, 0), function()
+    lp.Character.HumanoidRootPart.CFrame = CFrame.new(-1615.29, 37.81, 136.45)
+end)
+button("🏜️ Desert", Color3.fromRGB(255, 180, 0), function()
+    lp.Character.HumanoidRootPart.CFrame = CFrame.new(941.14, 21.97, 1331.00)
+end)
+button("❄️ Snow", Color3.fromRGB(0, 180, 255), function()
+    lp.Character.HumanoidRootPart.CFrame = CFrame.new(1176.45, 44.81, 1392.10)
+end)
+button("☁️ Sky", Color3.fromRGB(150, 150, 255), function()
+    lp.Character.HumanoidRootPart.CFrame = CFrame.new(-4877.26, 717.66, -2622.50)
+end)
+
+scroll.CanvasSize = UDim2.new(0, 0, 0, y + 30)
+main.Visible = false
+
+-- ==================================================
+-- CORE HACK
+-- ==================================================
+
+local function getChar()
+    return lp.Character, lp.Character and lp.Character:FindFirstChild("HumanoidRootPart"), lp.Character and lp.Character:FindFirstChild("Humanoid")
+end
+
+local function teleport(pos)
+    local _, root = getChar()
+    if root then root.CFrame = CFrame.new(pos) end
+end
+
+-- Farm
+spawn(function()
+    while wait(0.1) do
+        if cfg.farm then
+            local nearest = nil
+            local minDist = math.huge
+            local _, root = getChar()
+            if root then
+                for _, mob in pairs(Workspace.Enemies:GetChildren()) do
+                    local hum = mob:FindFirstChild("Humanoid")
+                    local mRoot = mob:FindFirstChild("HumanoidRootPart")
+                    if hum and hum.Health > 0 and mRoot then
+                        local dist = (root.Position - mRoot.Position).magnitude
+                        if dist < minDist and dist < 150 then
+                            minDist = dist
+                            nearest = mob
+                        end
+                    end
+                end
+                if nearest then
+                    local mRoot = nearest:FindFirstChild("HumanoidRootPart")
+                    if mRoot then
+                        if (root.Position - mRoot.Position).magnitude > 15 then
+                            root.CFrame = mRoot.CFrame * CFrame.new(0, 0, 5)
+                        end
+                        ReplicatedStorage.Remotes.CommF_:InvokeServer("DealDamage", mRoot.Position)
+                    end
+                end
+            end
+        end
+        
+        if cfg.bring then
+            local _, root = getChar()
+            if root then
+                for _, mob in pairs(Workspace.Enemies:GetChildren()) do
+                    local hum = mob:FindFirstChild("Humanoid")
+                    local mRoot = mob:FindFirstChild("HumanoidRootPart")
+                    if hum and hum.Health > 0 and mRoot and (root.Position - mRoot.Position).magnitude > 25 then
+                        mRoot.CFrame = root.CFrame * CFrame.new(0, 0, 15)
+                    end
+                end
+            end
+        end
+        
+        if cfg.quest then
+            local gui = lp.PlayerGui
+            if gui and gui.Main and gui.Main.Quest and gui.Main.Quest.Visible == false then
+                ReplicatedStorage.Remotes.CommF_:InvokeServer("StartQuest", "BanditQuest1", 1)
+            end
+        end
+        
+        if cfg.haki then
+            ReplicatedStorage.Remotes.CommF_:InvokeServer("Buso")
+        end
+        
+        if cfg.store then
+            for _, fruit in pairs(Workspace:GetChildren()) do
+                if fruit:IsA("Tool") and fruit:FindFirstChild("Handle") then
+                    ReplicatedStorage.Remotes.CommF_:InvokeServer("StoreFruit", fruit.Name)
+                    fruit:Destroy()
+                end
+            end
+        end
+        
+        if cfg.snipe then
+            for _, fruit in pairs(Workspace:GetChildren()) do
+                if fruit:IsA("Tool") and fruit:FindFirstChild("Handle") then
+                    if fruit.Name:lower():find("dragon") or fruit.Name:lower():find("leopard") then
+                        teleport(fruit.Handle.Position)
+                        wait(0.3)
+                        fireproximityprompt(fruit:FindFirstChildOfClass("ProximityPrompt"), 0)
+                    end
+                end
+            end
+        end
+        
+        if cfg.raids then
+            ReplicatedStorage.Remotes.CommF_:InvokeServer("Raids", "Select", "Flame")
+            wait(1)
+            ReplicatedStorage.Remotes.CommF_:InvokeServer("Raids", "Start")
+            wait(300)
+        end
+    end
+end)
+
+-- ESP
+if cfg.esp then
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= lp and player.Character and not player.Character:FindFirstChild("ESP") then
+            local hl = Instance.new("Highlight")
+            hl.Name = "ESP"
+            hl.Adornee = player.Character
+            hl.FillColor = Color3.fromRGB(255, 0, 0)
+            hl.FillTransparency = 0.5
+            hl.Parent = player.Character
+        end
+    end
+end
+
+-- Speed & Fly
+spawn(function()
+    while wait(0.1) do
+        local char, root, hum = getChar()
+        if cfg.speed and hum then
+            hum.WalkSpeed = cfg.speedVal
+            hum.JumpPower = cfg.jumpVal or 100
+        end
+        if cfg.fly and char then
+            local bv = char:FindFirstChild("FlyBV")
+            if not bv then
+                bv = Instance.new("BodyVelocity")
+                bv.Name = "FlyBV"
+                bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+                bv.Parent = char
+            end
+            local dir = Vector3.new()
+            if UserInputService:IsKeyDown(Enum.KeyCode.W) then dir = dir + root.CFrame.LookVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.S) then dir = dir - root.CFrame.LookVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.A) then dir = dir - root.CFrame.RightVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.D) then dir = dir + root.CFrame.RightVector end
+            if UserInputService:IsKeyDown(Enum.KeyCode.Space) then dir = dir + Vector3.new(0, 1, 0) end
+            if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then dir = dir - Vector3.new(0, 1, 0) end
+            bv.Velocity = dir.Magnitude > 0 and dir.Unit * 50 or Vector3.new()
+            if hum then hum.PlatformStand = true end
+        elseif not cfg.fly and char and char:FindFirstChild("FlyBV") then
+            char.FlyBV:Destroy()
+            if hum then hum.PlatformStand = false end
+        end
+    end
+end)
+
+-- Anti AFK
+spawn(function()
+    while wait(60) do
+        if cfg.antiafk then
+            VirtualUser:CaptureController()
+            VirtualUser:ClickButton2(Vector2.new())
+        end
+    end
+end)
+
+-- Thông báo
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "🔥 ALPHA HUB",
+    Text = "Đã tải thành công! Nhấn nút đỏ để mở menu",
+    Duration = 4
+})
+
+print("✅ ALPHA HUB LOADED - KHÔNG LỖI - GIAO DIỆN ĐẸP")
